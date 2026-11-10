@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import WorkSheet from '../../components/WorkSheet.astro';
+import Partners from '../../components/Partners.astro';
+import Icon from '../../components/Icon.astro';
+import { getWorks } from '../../data/works';
+import { categories, type CategoryKey } from '../../data/site';
+import { categoryText } from '../../data/categories';
+
+const keys: CategoryKey[] = ['documentaire', 'reportage', 'presse', 'edition', 'internet'];
+const groups = await Promise.all(keys.map(async (k) => ({ key: k, works: await getWorks(k) })));
+let n = 1;
+const numbered = groups.map((g) => {
+  const start = n;
+  n += g.works.length;
+  return { ...g, start };
+});
+const all = groups.flatMap((g) => g.works);
+---
+<Base
+  title="Réalisations"
+  description="Profitez de l’expérience Wallraff Contents pour la création de vos contenus vidéos (documentaires, reportages, films) et de rédactions (presse, édition, web)."
+  ogImage={all[0]?.data.cover}
+>
+  <PageHead title="Réalisations" lede="Profitez de l’expérience Wallraff Contents pour la création de vos contenus vidéos (documentaires, reportages, films) et de rédactions (presse, édition, web).">
+    <nav class="toc" aria-label="Catégories">
+      {numbered.map((g) => (
+        <a href={`#${g.key}`}>{categories[g.key].plural} <span class="toc-count edge">{g.works.length}</span></a>
+      ))}
+    </nav>
+  </PageHead>
+
+  {numbered.map((g) => (
+    <section class="cat-section" id={g.key} aria-labelledby={`${g.key}-title`}>
+      <div class="wrap cat-head">
+        <h2 id={`${g.key}-title`} class="section-title">{categories[g.key].plural}</h2>
+        <p class="cat-text">{categoryText[g.key].lede}</p>
+        {(g.key === 'documentaire' || g.key === 'reportage') && (
+          <a class="more" href={categories[g.key].href}>Tous les {categories[g.key].plural.toLowerCase()} <Icon name="arrow" /></a>
+        )}
+      </div>
+      <div class:list={[{ wrap: !(g.key === 'documentaire' || g.key === 'reportage') }]}>
+        <WorkSheet works={g.works} label={categories[g.key].plural} startNumber={g.start} />
+      </div>
+    </section>
+  ))}
+
+  <section class="wrap cat-section" aria-labelledby="partners-title">
+    <h2 id="partners-title" class="section-title partners-title">Nos clients et partenaires</h2>
+    <Partners withGitoc />
+  </section>
+</Base>
+
+<style>
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 2px solid var(--ink);
+  }
+
+  .toc a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding-block: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-decoration-color: var(--red-ink);
+  }
+
+  .toc-count {
+    color: var(--ink);
+  }
+
+  .cat-section {
+    padding-block: var(--space-8);
+    border-top: 2px solid var(--ink);
+  }
+
+  .cat-head {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-4);
+    margin-bottom: var(--space-7);
+  }
+
+  .cat-text {
+    max-width: 62ch;
+  }
+
+  .partners-title {
+    margin-bottom: var(--space-6);
+  }
+</style>

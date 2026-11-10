@@ -1,0 +1,141 @@
+---
+import { nav, contact } from '../data/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+interface Props {
+  socials?: { label: string; url: string }[];
+  closing?: boolean;
+}
+const { socials = [], closing = true } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="site-footer on-film">
+  {closing && (
+    <div class="wrap footer-close">
+      <p class="footer-claim">Un projet de reportage, de documentaire, d’évènement ou de livre&nbsp;?</p>
+      <div class="footer-actions">
+        <a class="action" href="/contact/">Demander un rendez-vous <Icon name="arrow" /></a>
+        <a class="footer-line" href={`tel:${contact.phoneHref}`}><Icon name="phone" /> {contact.phone}</a>
+        <a class="footer-line" href={`mailto:${contact.email}`}><Icon name="mail" /> {contact.email}</a>
+      </div>
+    </div>
+  )}
+  <div class="wrap footer-grid">
+    <a class="footer-brand" href="/" aria-label="Wallraff Contents, accueil"><Logo inverse /></a>
+    <nav aria-label="Pied de page">
+      <ul>
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><a href="/mentions-legales/">Mentions légales</a></li>
+      </ul>
+    </nav>
+    {socials.length > 0 && (
+      <ul class="footer-socials" aria-label="Réseaux sociaux">
+        {socials.map((s) => <li><a href={s.url} rel="noopener" target="_blank">{s.label}<span class="visually-hidden"> (nouvel onglet)</span></a></li>)}
+      </ul>
+    )}
+    <p class="footer-legal edge">© {year} Wallraff Contents SAS · RCS Paris 887 645 976 · NAF 5911A</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .site-footer a {
+    text-decoration-color: var(--red);
+  }
+
+  .footer-close {
+    display: grid;
+    gap: var(--space-6);
+    padding-block: var(--space-9) var(--space-8);
+    border-bottom: 2px solid var(--paper);
+  }
+
+  .footer-claim {
+    font-family: var(--font-display);
+    font-weight: 850;
+    font-stretch: 112%;
+    font-size: var(--step-4);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    max-width: 20ch;
+    text-wrap: balance;
+  }
+
+  .footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+  }
+
+  .footer-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    font-family: var(--font-display);
+    font-weight: 650;
+    font-size: var(--step-1);
+    text-decoration: none;
+  }
+
+  .footer-line:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+  }
+
+  .footer-line :global(svg) {
+    width: 1.2rem;
+    height: 1.2rem;
+    color: var(--red);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    gap: var(--space-6) var(--space-7);
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  .footer-grid nav ul,
+  .footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-grid nav a,
+  .footer-socials a {
+    display: inline-block;
+    padding-block: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .footer-grid nav a:hover,
+  .footer-socials a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+  }
+
+  .footer-legal {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  @media (max-width: 56rem) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

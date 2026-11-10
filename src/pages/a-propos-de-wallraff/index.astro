@@ -1,0 +1,135 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Icon from '../../components/Icon.astro';
+import portrait from '../../assets/site/frederic-crotta-wallraff.jpg';
+
+const services = [
+  'Conseil éditorial',
+  'Suivi de projet',
+  'Recherche de documentation et d’informations',
+  'Écriture de synopsis, d’articles de presse, web et corporate',
+  'Production de podcasts',
+  'Édition',
+  'Brand content',
+  'Motion design',
+];
+---
+<Base title="À propos de Wallraff" description="Wallraff Contents est une agence spécialisée dans la production de contenus éditoriaux et dans la réalisation de vidéos." ogImage={portrait}>
+  <PageHead title="À propos de Wallraff" />
+
+  <section class="wrap about" aria-labelledby="about-title">
+    <figure class="interview on-film">
+      <Image src={portrait} alt="Frédéric Crotta, grand reporter, fondateur de Wallraff Contents" widths={[360, 540, 720]} sizes="(max-width: 56rem) 92vw, 30rem" class="interview-image" loading="eager" />
+      <figcaption class="lower-third">
+        <span class="lt-name">Frédéric Crotta</span>
+        <span class="lt-role">Fondateur de Wallraff Contents</span>
+      </figcaption>
+    </figure>
+
+    <div class="about-text">
+      <h2 id="about-title" class="about-title">Parce qu’aujourd’hui, le public consomme les médias autrement</h2>
+      <p class="lede"><strong>Wallraff Contents est une agence spécialisée dans la production de contenus éditoriaux et dans la réalisation de vidéos.</strong></p>
+      <ul class="services">
+        {services.map((s) => <li>{s}</li>)}
+      </ul>
+      <p>Wallraff Contents est une société fondée par Frédéric Crotta, ex-grand reporter au groupe France TV pour lequel il traitait l’actualité nationale et internationale dans les JT et les magazines de la rédaction.</p>
+      <p>Wallraff Contents dispose d’un réseau de journalistes, de cameramen, monteurs, post-producteurs, voix off, etc. afin d’offrir une garantie de qualité optimale à ses contenus.</p>
+      <div class="about-actions">
+        <a class="action" href="/contact/">Demander un rendez-vous <Icon name="arrow" /></a>
+        <a class="action action--quiet" href="/realisations/">Voir les réalisations</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 30rem) minmax(0, 1fr);
+    gap: var(--space-7) clamp(2rem, 6vw, 6rem);
+    align-items: start;
+    padding-bottom: var(--space-9);
+  }
+
+  .interview {
+    position: relative;
+    margin: 0;
+    background: var(--ink);
+  }
+
+  .interview-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .lower-third {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    display: grid;
+    justify-items: start;
+  }
+
+  .lt-name {
+    padding: 0.45rem 0.9rem 0.4rem;
+    background: var(--paper);
+    font-family: var(--font-display);
+    font-weight: 850;
+    font-size: var(--step-1);
+    line-height: 1.1;
+  }
+
+  .lt-role {
+    padding: 0.3rem 0.9rem 0.35rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-display);
+    font-stretch: 85%;
+    font-weight: 650;
+    font-size: 0.875rem;
+  }
+
+  .about-text {
+    display: grid;
+    gap: var(--space-5);
+    max-width: 44rem;
+  }
+
+  .about-title {
+    font-size: var(--step-3);
+  }
+
+  .services {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-display);
+    font-weight: 650;
+    font-size: var(--step-1);
+    line-height: 1.45;
+  }
+
+  .services li {
+    display: inline;
+  }
+
+  .services li:not(:last-child)::after {
+    content: ' – ';
+  }
+
+  .about-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  @media (max-width: 56rem) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

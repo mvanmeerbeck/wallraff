@@ -1,0 +1,214 @@
+{
+  "_source": "Extracted from https://wallraff.fr on 2026-11-10 (all pages, posts and the site-wide footer). Values are copied as published; inconsistencies are listed in `inconsistencies`.",
+  "emails": [
+    {
+      "address": "wallraff.production@gmail.com",
+      "occurrences": [
+        {
+          "page": "all pages (site-wide footer)",
+          "context": "Footer widget « Contact », second line",
+          "kind": "displayed text",
+          "note": "The link around this text points to mailto:production@wallraff.fr, i.e. a different address than the one displayed"
+        },
+        {
+          "page": "/contact",
+          "context": "Intro paragraph « Vous pouvez contacter Wallraff Contents directement par email, … » – link text « email »",
+          "kind": "mailto href",
+          "href": "mailto:wallraff.production@gmail.com"
+        }
+      ]
+    },
+    {
+      "address": "production@wallraff.fr",
+      "occurrences": [
+        {
+          "page": "all pages (site-wide footer)",
+          "context": "Footer widget « Contact », second line",
+          "kind": "mailto href (never displayed)",
+          "href": "mailto:production@wallraff.fr",
+          "displayedText": "wallraff.production@gmail.com"
+        }
+      ]
+    },
+    {
+      "address": "contact@wallraff.fr",
+      "occurrences": [
+        {
+          "page": "/mentions-legales",
+          "context": "1 – Édition du site, « Propriétaire du site : WALLRAFF CONTENTS – Contact : contact@wallraff.fr 07 81 87 20 51 – … »",
+          "kind": "displayed text (no link)"
+        },
+        {
+          "page": "/mentions-legales",
+          "context": "1 – Édition du site, « Délégué à la protection des données : Frédéric Crotta – contact@wallraff.fr »",
+          "kind": "displayed text (no link)"
+        },
+        {
+          "page": "/mentions-legales",
+          "context": "4 – CNIL et gestion des données personnelles, « … notre Délégué à la Protection des Données : Frédéric Crotta – contact@wallraff.fr. »",
+          "kind": "displayed text (bold, no link)"
+        }
+      ]
+    },
+    {
+      "address": "quelleinfodemain.luxeuil@gmail.com",
+      "occurrences": [
+        {
+          "page": "/evenements, /actualites, / (homepage « Actualités »)",
+          "context": "Printed on the « Quelle info demain ? » event posters (raster text inside images, not HTML)",
+          "kind": "text inside image",
+          "note": "Contact of the Luxeuil event, not of Wallraff Contents"
+        }
+      ]
+    }
+  ],
+  "phones": [
+    {
+      "number": "06 07 67 85 76",
+      "e164": "+33607678576",
+      "occurrences": [
+        {
+          "page": "all pages (site-wide footer)",
+          "context": "Footer widget « Contact », first line",
+          "kind": "displayed text + tel href",
+          "displayedText": " 06 07 67 85 76",
+          "href": "tel:+33607678576"
+        },
+        {
+          "page": "/contact",
+          "context": "Intro paragraph – link text « téléphone » (number not displayed)",
+          "kind": "tel href",
+          "href": "tel:0607678576"
+        }
+      ]
+    },
+    {
+      "number": "07 81 87 20 51",
+      "e164": "+33781872051",
+      "occurrences": [
+        {
+          "page": "/mentions-legales",
+          "context": "« Propriétaire du site : WALLRAFF CONTENTS – Contact : contact@wallraff.fr 07 81 87 20 51 – Adresse : … »",
+          "kind": "displayed text (no link)"
+        }
+      ]
+    },
+    {
+      "number": "04.44.44.60.40",
+      "e164": "+33444446040",
+      "occurrences": [
+        {
+          "page": "/mentions-legales",
+          "context": "Hébergeur O2Switch – « Téléphone : 04.44.44.60.40 »",
+          "kind": "displayed text (no link)",
+          "note": "Phone of the web host, not of Wallraff Contents"
+        }
+      ]
+    }
+  ],
+  "social": [
+    {
+      "network": "Facebook",
+      "url": "https://www.facebook.com/Wallraff.Contents",
+      "label": "Facebook",
+      "where": ["all pages (footer, vertical social links, icon + label)", "/contact (left column, pill buttons, target _blank)"]
+    },
+    {
+      "network": "LinkedIn",
+      "url": "https://www.linkedin.com/company/wallraff/",
+      "label": "LinkedIn",
+      "where": ["all pages (footer, vertical social links, icon + label)", "/contact (left column, pill buttons, target _blank)"]
+    }
+  ],
+  "socialNotFound": ["Instagram", "YouTube channel", "X/Twitter", "Vimeo channel"],
+  "postalAddress": {
+    "asPublished": "15 rue de l’aqueduc 75010 Paris",
+    "streetAddress": "15 rue de l’aqueduc",
+    "postalCode": "75010",
+    "addressLocality": "Paris",
+    "addressCountry": "FR",
+    "where": "/mentions-legales only (« Adresse » of the site owner and « Adresse postale » of the company)"
+  },
+  "company": {
+    "legalName": "WALLRAFF CONTENTS",
+    "tradeName": "Wallraff Contents",
+    "legalForm": "SAS",
+    "capitalAsPublished": "2000€€",
+    "siren": "887645976",
+    "sirenAsPublishedInFooter": "887 645 976",
+    "rcsAsPublished": {
+      "mentionsLegales": "RCS ou RM : RCS Paris B",
+      "footer": "RCS Paris 887 645 976"
+    },
+    "siret": null,
+    "siretNote": "No SIRET is published anywhere on the site",
+    "naf": "5911A",
+    "directeurDeLaPublication": "Frédéric Crotta",
+    "directeurDeLaPublicationAsPublished": "Directeur de la publication : – Contact : Frédéric Crotta",
+    "delegueProtectionDonnees": { "name": "Frédéric Crotta", "email": "contact@wallraff.fr" },
+    "hebergeur": {
+      "name": "O2Switch",
+      "address": "222 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand",
+      "phone": "04.44.44.60.40"
+    },
+    "autresContributeurs": {
+      "label": "Création du site internet et référencement",
+      "name": "supazena.com",
+      "url": "https://supazena.com"
+    },
+    "financement": "Ce projet a été financé par le Gouvernement dans le cadre du plan de relance (logo France Relance)",
+    "founder": "Frédéric Crotta",
+    "footerCopyright": "© 2026 Wallraff Contents SAS - Mentions légales - RCS Paris 887 645 976 - NAF 5911A",
+    "footerTagline": ["Wallraff Contents", "Producteur de Contenus Éditoriaux", "TV, Internet, Presse, Édition"]
+  },
+  "contactForm": {
+    "page": "/contact",
+    "provider": "WPForms Lite",
+    "formId": 290,
+    "method": "POST (AJAX) to /contact",
+    "fields": [
+      {
+        "id": 0,
+        "label": "Nom",
+        "type": "name (first + last)",
+        "required": true,
+        "subFields": [
+          { "sublabel": "Prénom", "name": "wpforms[fields][0][first]", "type": "text", "required": true },
+          { "sublabel": "Nom", "name": "wpforms[fields][0][last]", "type": "text", "required": true }
+        ]
+      },
+      {
+        "id": 3,
+        "label": "Email Téléphone Message",
+        "type": "text",
+        "required": false,
+        "note": "Odd optional single-line field whose label concatenates the next three field names (looks like a leftover)"
+      },
+      { "id": 1, "label": "Email", "type": "email", "required": true },
+      { "id": 5, "label": "Téléphone", "type": "text", "required": true },
+      { "id": 2, "label": "Message", "type": "textarea", "required": true }
+    ],
+    "selectOptions": [],
+    "submitLabel": "Envoyer",
+    "spinnerAlt": "Chargement en cours",
+    "validationMessages": {
+      "required": "Ce champ est nécessaire",
+      "email": "Veuillez saisir une adresse e-mail valide."
+    },
+    "requiredMarker": "*",
+    "confirmationMessage": null,
+    "confirmationNote": "The post-submit confirmation text is server-side and was not retrieved (no form was submitted)."
+  },
+  "inconsistencies": [
+    "Footer email: displayed « wallraff.production@gmail.com » but the link is mailto:production@wallraff.fr (two different addresses in one link).",
+    "Three different Wallraff emails on the site: wallraff.production@gmail.com (footer text, /contact mailto), production@wallraff.fr (footer mailto only), contact@wallraff.fr (mentions légales, 3×).",
+    "Two different Wallraff phone numbers: 06 07 67 85 76 (footer + /contact tel link) vs 07 81 87 20 51 (mentions légales).",
+    "tel: format differs: tel:+33607678576 (footer) vs tel:0607678576 (/contact).",
+    "Footer displayed number starts with a leading space: « 06 07 67 85 76».",
+    "RCS: mentions légales « RCS Paris B » (number missing) vs footer « RCS Paris 887 645 976 »; SIREN written 887645976 vs 887 645 976.",
+    "Capital social published as « 2000€€ » (duplicated euro sign).",
+    "« Directeur de la publication : – Contact : Frédéric Crotta » (name placed after « Contact : », stray dash).",
+    "Mentions légales link to /politique-confidentialite (×2) returns 404: there is no privacy policy page on the site.",
+    "Postal address appears only in mentions légales; no address on /contact or in the footer."
+  ]
+}

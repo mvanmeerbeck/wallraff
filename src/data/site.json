@@ -1,0 +1,86 @@
+{
+  "_source": "Site-wide content of https://wallraff.fr (header, navigation, footer, WordPress settings, category archive texts), extracted 2026-11-10. Text copied verbatim.",
+  "siteName": "Wallraff Contents",
+  "wpTagline": "Producteur de contenus TV - WEB - RESEAUX SOCIAUX - EDITION",
+  "wpTaglineNote": "WordPress « slogan » setting; not displayed in the page body (the header shows only the logo).",
+  "metaTitleSuffix": " - Wallraff Contents",
+  "language": "fr-FR",
+  "logos": {
+    "header": "../assets/site/logo-wallraff-01.png",
+    "header2x": "../assets/site/logo-wallraff-01-xxl.png",
+    "headerAlt": "Wallraff Contents",
+    "footer": "../assets/site/logo-wallraff-02.png",
+    "footerAlt": "",
+    "siteIcon": "../assets/site/cropped-wallraff-icone.png",
+    "siteIconSource": "../assets/site/wallraff-icone.png",
+    "note": "No SVG version exists on the server; largest raster logo = logo-wallraff-01-xxl.png (1000x197). Footer logo (stacked) only exists at 300x222. Paths are relative to src/data/."
+  },
+  "navigation": [
+    { "label": "Reportages", "href": "/#productiondereportages" },
+    { "label": "Documentaires", "href": "/#productiondocumentaires" },
+    { "label": "Presse – Edition", "href": "/#presseeditioninternet" },
+    { "label": "Évènements", "href": "/#evenements" },
+    { "label": "Actualités", "href": "/actualites" },
+    { "label": "Galerie", "href": "/#galerie" },
+    { "label": "A propos", "href": "/a-propos-de-wallraff" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "navigationNote": "Five of the eight menu items are anchors on the homepage, not links to the dedicated pages (/reportages, /documentaires, /presse-edition-internet, /evenements, /galerie). /realisations is not in the menu.",
+  "footer": {
+    "column1": {
+      "heading": "Wallraff Contents",
+      "text": ["Producteur de Contenus Éditoriaux", "TV, Internet, Presse, Édition"],
+      "separator": "short red rule (#ff000c)"
+    },
+    "column2": {
+      "heading": "Contact",
+      "phone": { "text": " 06 07 67 85 76", "href": "tel:+33607678576" },
+      "email": { "text": "wallraff.production@gmail.com", "href": "mailto:production@wallraff.fr" },
+      "social": [
+        { "label": "Facebook", "href": "https://www.facebook.com/Wallraff.Contents" },
+        { "label": "LinkedIn", "href": "https://www.linkedin.com/company/wallraff/" }
+      ]
+    },
+    "column3": { "image": "../assets/site/logo-wallraff-02.png" },
+    "copyright": "© 2026 Wallraff Contents SAS - Mentions légales - RCS Paris 887 645 976 - NAF 5911A",
+    "copyrightLinks": [{ "label": "Mentions légales", "href": "/mentions-legales" }]
+  },
+  "categories": [
+    {
+      "slug": "documentaire",
+      "name": "Documentaire",
+      "archiveUrl": "/realisations/documentaire",
+      "metaTitle": "Documentaire - Wallraff Contents",
+      "description": "Wallraff réunit de nombreux auteurs, journalistes, réalisateurs, monteurs pour le développement et la réalisation de documentaires et de séries."
+    },
+    {
+      "slug": "reportage",
+      "name": "Reportage",
+      "archiveUrl": "/realisations/reportage",
+      "metaTitle": "Reportage - Wallraff Contents",
+      "description": "Wallraff Contents produit un certain nombre de reportages pour la télévision et les plateformes internet."
+    },
+    {
+      "slug": "presse",
+      "name": "Presse",
+      "archiveUrl": "/realisations/presse",
+      "metaTitle": "Presse - Wallraff Contents",
+      "description": "Avec son réseau de rédacteurs et de journalistes, Wallraff Contents collabore à des sites d’information et à des grands magazines de la presse."
+    },
+    {
+      "slug": "edition",
+      "name": "Edition",
+      "archiveUrl": "/realisations/edition",
+      "metaTitle": "Edition - Wallraff Contents",
+      "description": "Auteur et journaliste, Frédéric Crotta a co-signé deux livres : Les Dessous des Affaires Judiciaires (Max Milo) avec Marcel Gay ainsi que BRB au Editions du Cherche Midi (avec Eric Merlen). Plusieurs projets d’édition sont à l’étude."
+    },
+    {
+      "slug": "internet",
+      "name": "Internet",
+      "archiveUrl": "/realisations/internet",
+      "metaTitle": "Internet - Wallraff Contents",
+      "description": "Wallraff Contents gère le contenu éditorial de votre site et s’entoure des meilleures agences et spécialistes d’Internet afin de mener à bien votre projet web : création, refonte, migration…"
+    }
+  ],
+  "categoriesNote": "Descriptions are shown as the header of each category archive page. Empty categories also exist in WordPress (fictions, public, non-classe: 0 posts, noindex)."
+}

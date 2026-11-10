@@ -1,0 +1,13 @@
+dist/
+.astro/
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+.impeccable/config.local.json
+
+# Impeccable : captures de relecture et caches locaux
+.impeccable/review/
+.impeccable/hook.cache.json
+.impeccable/questions/

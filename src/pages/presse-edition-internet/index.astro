@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import WorkSheet from '../../components/WorkSheet.astro';
+import { getWorks } from '../../data/works';
+import { categoryText } from '../../data/categories';
+
+const presse = await getWorks('presse');
+const edition = await getWorks('edition');
+const internet = await getWorks('internet');
+const sections = [
+  { id: 'presse', title: 'Nos articles de presse', works: presse, text: '' },
+  { id: 'edition', title: 'Nos enquêtes en édition', works: edition, text: categoryText.edition.more },
+  { id: 'internet', title: 'Nos créations de sites Internet', works: internet, text: '' },
+];
+---
+<Base title="Presse – Édition – Internet" description={categoryText.presse.lede} ogImage={presse[0]?.data.cover}>
+  <PageHead title={"Presse\u00a0– Édition\u00a0– Internet"}>
+    <div class="intro">
+      <p class="lede">Avec son réseau de rédacteurs et de journalistes, Wallraff Contents collabore à des sites d’information et à des grands magazines de la presse.</p>
+      <p>Wallraff Contents s’entoure également des meilleures agences et spécialistes d’Internet afin de mener à bien votre projet web : création, refonte, migration, création de contenu.</p>
+      <p>Enfin, Wallraff Contents développe un secteur « édition » à partir du travail de ses enquêteurs indépendants.</p>
+    </div>
+    <nav class="toc" aria-label="Sur cette page">
+      {sections.map((s) => <a href={`#${s.id}`}>{s.title}</a>)}
+    </nav>
+  </PageHead>
+
+  {sections.map((s) => (
+    <section class="wrap cat-section" id={s.id} aria-labelledby={`${s.id}-title`}>
+      <div class="cat-head">
+        <h2 id={`${s.id}-title`} class="section-title">{s.title}</h2>
+        {s.text && <p class="cat-text">{s.text}</p>}
+      </div>
+      <WorkSheet works={s.works} label={s.title} />
+    </section>
+  ))}
+</Base>
+
+<style>
+  .intro {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 62ch;
+    margin-top: var(--space-5);
+  }
+
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 2px solid var(--ink);
+  }
+
+  .toc a {
+    display: inline-block;
+    padding-block: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-decoration-color: var(--red-ink);
+  }
+
+  .cat-section {
+    padding-block: var(--space-8);
+    border-top: 2px solid var(--ink);
+  }
+
+  .cat-section:last-of-type {
+    padding-bottom: var(--space-9);
+  }
+
+  .cat-head {
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: var(--space-7);
+  }
+
+  .cat-text {
+    max-width: 62ch;
+  }
+</style>

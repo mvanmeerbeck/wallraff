@@ -1,0 +1,85 @@
+---
+import { contact } from '../data/site';
+import Icon from './Icon.astro';
+---
+<div class="mobile-bar" aria-label="Contact rapide" role="region" data-mobile-bar>
+  <a href={`tel:${contact.phoneHref}`} class="mb-call"><Icon name="phone" /> Appeler</a>
+  <a href="/contact/" class="mb-rdv">Demander un rendez-vous</a>
+</div>
+
+<style>
+  .mobile-bar {
+    display: none;
+  }
+
+  @media (max-width: 48rem) {
+    .mobile-bar {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 40;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      border-top: 2px solid var(--ink);
+      background: var(--paper);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .mobile-bar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 3.25rem;
+      padding-inline: 1rem;
+      font-family: var(--font-display);
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .mobile-bar[data-hidden='true'] {
+      transform: translateY(110%);
+      visibility: hidden;
+    }
+
+    .mobile-bar {
+      transition: transform 260ms var(--ease-out), visibility 0s linear 0s;
+    }
+
+    .mobile-bar[data-hidden='true'] {
+      transition: transform 260ms var(--ease-out), visibility 0s linear 260ms;
+    }
+
+    .mb-call {
+      border-right: 2px solid var(--ink);
+    }
+
+    .mb-call :global(svg) {
+      width: 1.15rem;
+      height: 1.15rem;
+      color: var(--red-ink);
+    }
+
+    .mb-rdv {
+      background: var(--red-ink);
+      color: var(--paper);
+    }
+
+    :global(body) {
+      padding-bottom: calc(3.25rem + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+
+<script>
+  // Sur une page qui a déjà ses boutons d'action en haut, la barre n'apparaît
+  // qu'une fois ces boutons passés, pour ne jamais doubler le même appel.
+  const bar = document.querySelector<HTMLElement>('[data-mobile-bar]');
+  const actions = document.querySelector<HTMLElement>('[data-primary-actions]');
+  if (bar && actions && 'IntersectionObserver' in window) {
+    bar.dataset.hidden = 'true';
+    new IntersectionObserver(([entry]) => {
+      const passed = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      bar.dataset.hidden = String(!passed);
+    }).observe(actions);
+  }
+</script>

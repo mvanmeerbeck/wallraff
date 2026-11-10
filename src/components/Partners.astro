@@ -1,0 +1,120 @@
+---
+// Clients et partenaires, tels que présentés sur l'ancien site.
+import { Image } from 'astro:assets';
+import franceTv from '../assets/site/logos/france-tv-logo.png';
+import france2 from '../assets/site/logos/france-2-logo.png';
+import france3 from '../assets/site/logos/france-3-logo.png';
+import fild from '../assets/site/logos/fild-media.jpg';
+import idj from '../assets/site/logos/infodujour-logo.png';
+import argenteuil from '../assets/site/logos/logo-mairie-argenteuil.png';
+import sfml from '../assets/site/logos/logo-medecine-legale.png';
+import ambroise from '../assets/site/logos/gregory-ambroise-seo-nancy.png';
+import arkane from '../assets/site/logos/arkana-persona.png';
+import gitoc from '../assets/site/logos/348283855_952673729257774_3943067379586526817_n-1.jpg';
+
+interface Props {
+  withGitoc?: boolean;
+}
+const { withGitoc = false } = Astro.props;
+
+const partners = [
+  { name: 'France Télévisions', url: 'https://www.francetvpro.fr/', logo: franceTv },
+  { name: 'France 2', url: 'https://www.francetvpro.fr/france-2', logo: france2 },
+  { name: 'France 3', url: 'https://www.francetvpro.fr/france-3', logo: france3 },
+  { name: 'FILD', url: 'https://fildmedia.com/', logo: fild },
+  { name: 'Infodujour', url: 'https://infodujour.fr/auteur/fcrotta', logo: idj },
+  { name: 'Ville d’Argenteuil', url: 'https://www.argenteuil.fr/', logo: argenteuil },
+  { name: 'Société française de médecine légale', url: 'https://medecinelegale.com/', logo: sfml },
+  { name: 'Grégory Ambroise', url: 'https://gregory-ambroise.com/', logo: ambroise },
+  { name: 'Arkane Persona', url: 'https://arkanepersona.com', logo: arkane },
+];
+if (withGitoc) partners.push({ name: 'Global Initiative against Transnational Organized Crime', url: '', logo: gitoc });
+---
+<ul class="partners" data-count={partners.length}>
+  {partners.map((p) => (
+    <li>
+      {p.url ? (
+        <a href={p.url} rel="noopener" target="_blank" class="partner">
+          <Image src={p.logo} alt="" widths={[160, 320]} sizes="160px" class="partner-logo" />
+          <span class="partner-name edge">{p.name}<span class="visually-hidden"> (nouvel onglet)</span></span>
+        </a>
+      ) : (
+        <span class="partner">
+          <Image src={p.logo} alt="" widths={[160, 320]} sizes="160px" class="partner-logo" />
+          <span class="partner-name edge">{p.name}</span>
+        </span>
+      )}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .partners {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--ink);
+    border-left: 2px solid var(--ink);
+  }
+
+  .partners li {
+    border-right: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .partner {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    justify-items: center;
+    gap: var(--space-4);
+    height: 100%;
+    padding: var(--space-5) var(--space-4) var(--space-4);
+    text-decoration: none;
+    transition: background-color 160ms var(--ease-out);
+  }
+
+  /* Logos en niveaux de gris, posés sur le papier : leur fond blanc s'y fond, le dessin reste intact. */
+  .partner-logo {
+    align-self: center;
+    width: auto;
+    max-width: min(100%, 8rem);
+    max-height: 4rem;
+    object-fit: contain;
+    filter: grayscale(1) contrast(1.25);
+    mix-blend-mode: multiply;
+  }
+
+  .partners[data-count='9'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .partners[data-count='10'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 48rem) {
+    .partners[data-count='10'] {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 75rem) {
+    .partners[data-count='9'] {
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+    }
+  }
+
+  .partner-name {
+    text-align: center;
+    line-height: 1.35;
+  }
+
+  .partner:hover .partner-name {
+    text-decoration: underline;
+    text-decoration-color: var(--red-ink);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+  }
+</style>

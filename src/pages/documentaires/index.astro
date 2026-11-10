@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import WorkSheet from '../../components/WorkSheet.astro';
+import { getWorks } from '../../data/works';
+import { categoryText } from '../../data/categories';
+
+const works = await getWorks('documentaire');
+const t = categoryText.documentaire;
+---
+<Base title="Documentaires" description={t.lede} ogImage={works[0]?.data.cover}>
+  <PageHead title="Documentaires" lede={t.lede}>
+    <p class="page-more">{t.more}</p>
+  </PageHead>
+  <section class="cat-sheet" aria-label="Nos documentaires">
+    <WorkSheet works={works} label="Nos documentaires" />
+  </section>
+</Base>
+
+<style>
+  .page-more {
+    margin-top: var(--space-4);
+    max-width: 60ch;
+  }
+
+  .cat-sheet {
+    padding-bottom: var(--space-9);
+  }
+</style>

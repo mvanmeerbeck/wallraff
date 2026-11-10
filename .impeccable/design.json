@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T00:00:00Z",
+  "title": "Design System: Wallraff Contents",
+  "extensions": {
+    "colorMeta": {
+      "red": { "role": "primary", "displayName": "Logo Red", "canonical": "#ff0000", "tonalRamp": ["#3d0000", "#660000", "#8f0000", "#b80000", "#d40000", "#ff0000", "#ff8a8a", "#ffe5e5"] },
+      "red-ink": { "role": "primary", "displayName": "Grease-Pencil Red", "canonical": "#d40000", "tonalRamp": ["#330000", "#570000", "#7a0000", "#a00000", "#d40000", "#f03a3a", "#ff9c9c", "#ffe8e8"] },
+      "paper": { "role": "neutral", "displayName": "Photographic Paper", "canonical": "#ffffff", "tonalRamp": ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"] },
+      "ink": { "role": "neutral", "displayName": "Film Black", "canonical": "#000000", "tonalRamp": ["#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Homepage H1 and page titles: Archivo 900 at 118% width, two lines on the paper." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles (max 18ch) and the footer claim: Archivo 850 at 112% width." },
+      "headline-sm": { "displayName": "Headline small", "purpose": "Rubrique titles, offer deck, mobile menu links." },
+      "title": { "displayName": "Title", "purpose": "Print captions, news titles, strip annotation, synthé name." },
+      "body": { "displayName": "Body", "purpose": "Source Serif 4 reading text, 66ch measure." },
+      "lede": { "displayName": "Lede", "purpose": "Section ledes, 52ch." },
+      "label": { "displayName": "Edge label", "purpose": "Film-edge labels: number ▸ title, print meta, dt terms, partner names. Uppercase, tabular figures, 75% width." },
+      "action": { "displayName": "Action", "purpose": "Buttons and next-action text links." },
+      "subtitle": { "displayName": "Burned-in subtitle", "purpose": "Quotes set inside images, white with a black halo, centred." }
+    },
+    "shadows": [
+      { "name": "print-on-paper", "value": "0 1px 2px rgb(0 0 0 / 0.18), 0 10px 24px -12px rgb(0 0 0 / 0.35)", "purpose": "Physical prints only (press spreads, book covers, event posters)." },
+      { "name": "print-clipping", "value": "0 1px 2px rgb(0 0 0 / 0.18), 0 14px 30px -14px rgb(0 0 0 / 0.4)", "purpose": "The tilted (-1.2deg) press clipping on the events page." },
+      { "name": "subtitle-halo", "value": "0 0 2px #000, 0 0 2px #000, 0 1px 3px #000", "purpose": "text-shadow for white text burned over images; replaces any scrim." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The only easing: exponential ease-out for every transition." },
+      { "name": "pencil-draw", "value": "stroke-dashoffset 620ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Signature: redraw the pencil loop on the selected frame or print. Opacity only under reduced motion." },
+      { "name": "state", "value": "160ms", "purpose": "Button fills, link underline thickness, nav border, partner hover." },
+      { "name": "arrow-nudge", "value": "transform 200ms, translateX(0.2em)", "purpose": "Next-action arrow on hover." },
+      { "name": "mobile-bar", "value": "transform 260ms", "purpose": "Mobile action bar slides out while page actions are visible." },
+      { "name": "frame-zoom", "value": "transform 700ms, scale(1.025)", "purpose": "Image inside a film frame on hover." }
+    ],
+    "breakpoints": [
+      { "name": "xs", "value": "30rem" },
+      { "name": "sm", "value": "40rem" },
+      { "name": "md", "value": "48rem" },
+      { "name": "nav", "value": "56rem" },
+      { "name": "lg", "value": "64rem" },
+      { "name": "header-cta", "value": "68rem" },
+      { "name": "xl", "value": "75rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Next action on white: pencil-red block, square, turns black on hover.",
+      "html": "<a class=\"ds-action\" href=\"#\">Demander un rendez-vous <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-action { display: inline-flex; align-items: center; gap: 0.6em; min-height: 3rem; padding: 0.75rem 1.35rem; border: 2px solid #d40000; background: #d40000; color: #fff; font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-stretch: 100%; font-weight: 750; font-size: 1.0625rem; line-height: 1.1; text-decoration: none; border-radius: 0; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), border-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-action svg { width: 1em; height: 1em; } .ds-action:hover { background: #000; border-color: #000; } .ds-action:focus-visible { outline: 3px solid #d40000; outline-offset: 3px; }"
+    },
+    {
+      "name": "Quiet Action",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Secondary action beside a primary: black outline, fills black on hover.",
+      "html": "<a class=\"ds-action-quiet\" href=\"#\">Voir les réalisations</a>",
+      "css": ".ds-action-quiet { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.75rem 1.35rem; border: 2px solid #000; background: transparent; color: #000; font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-weight: 750; font-size: 1.0625rem; line-height: 1.1; text-decoration: none; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-action-quiet:hover { background: #000; color: #fff; } .ds-action-quiet:focus-visible { outline: 3px solid #d40000; outline-offset: 3px; }"
+    },
+    {
+      "name": "Next-Action Link",
+      "kind": "custom",
+      "refersTo": "more",
+      "description": "Text action with a red rule and a drawn arrow that nudges on hover.",
+      "html": "<a class=\"ds-more\" href=\"#\">À propos de Wallraff <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-more { display: inline-flex; align-items: center; gap: 0.45em; color: #000; font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-weight: 750; text-decoration: none; border-bottom: 2px solid #d40000; padding-bottom: 0.1em; } .ds-more svg { width: 0.95em; height: 0.95em; transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-more:hover svg { transform: translateX(0.2em); } .ds-more:focus-visible { outline: 3px solid #d40000; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square 2px black field; red outline and border on focus, 3px red border when invalid.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Votre nom</span><input class=\"ds-input\" type=\"text\" placeholder=\"\"></label>",
+      "css": ".ds-field { display: grid; gap: 0.4rem; } .ds-field-label { font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 1rem; color: #000; } .ds-input { width: 100%; min-height: 3rem; padding: 0.7rem 0.85rem; border: 2px solid #000; border-radius: 0; background: #fff; color: #000; font-family: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, serif; font-size: 1.0625rem; appearance: none; } .ds-input:focus-visible { outline: 3px solid #d40000; outline-offset: 0; border-color: #d40000; } .ds-input[aria-invalid='true'] { border: 3px solid #d40000; }"
+    },
+    {
+      "name": "Main Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Archivo 650 links with a 3px bottom mark: black on hover, pencil red for the current page.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Réalisations</a><a href=\"#\">Évènements</a><a href=\"#\">À propos</a><a href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 1.5rem; padding: 1rem 0; background: #fff; border-bottom: 2px solid #000; } .ds-nav a { color: #000; font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-weight: 650; font-stretch: 100%; text-decoration: none; border-bottom: 3px solid transparent; padding-block: 0.35rem; transition: border-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav a:hover { border-bottom-color: #000; } .ds-nav a[aria-current='page'] { border-bottom-color: #d40000; } .ds-nav a:focus-visible { outline: 3px solid #d40000; outline-offset: 3px; }"
+    },
+    {
+      "name": "Film Frame with Pencil Loop",
+      "kind": "custom",
+      "refersTo": "film-frame",
+      "description": "Signature: a sprocketed frame with a number ▸ title edge label; hover or focus redraws the red pencil loop.",
+      "html": "<a class=\"ds-frame\" href=\"#\"><span class=\"ds-frame-shot\"><span class=\"ds-frame-image\"></span><svg class=\"ds-loop\" viewBox=\"-10.7 -6 199.1 112\" aria-hidden=\"true\"><path pathLength=\"1\" stroke-width=\"1.7\" d=\"M 16.0 27 C 24.9 7, 110.2 1, 156.4 10, C 179.6 15, 177.8 74, 160.0 87, C 135.1 101, 39.1 99, 14.2 85, C -5.3 72, -1.8 33, 26.7 17, C 48.0 7, 92.4 4, 124.4 7\"/></svg></span><span class=\"ds-edge\"><span>01</span><svg viewBox=\"0 0 8 10\" aria-hidden=\"true\"><path d=\"M0 0 8 5 0 10z\"/></svg><span>Titre du film</span></span></a>",
+      "css": ".ds-frame { position: relative; display: block; width: 20rem; padding: 1.9rem 1rem 2.15rem; background: #000; color: #fff; text-decoration: none; } .ds-frame::before, .ds-frame::after { content: ''; position: absolute; inset-inline: 0; height: 0.75rem; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='12'%3E%3Crect x='5' y='2' width='12' height='8' rx='2' fill='white'/%3E%3C/svg%3E\"); background-repeat: repeat-x; background-size: 1.375rem 0.75rem; } .ds-frame::before { top: 0.5rem; } .ds-frame::after { bottom: 0.5rem; } .ds-frame-shot { position: relative; display: block; } .ds-frame-image { display: block; aspect-ratio: 16 / 9; background: #fff; } .ds-loop { position: absolute; top: -6%; left: -6%; width: 112%; height: 112%; overflow: visible; fill: none; pointer-events: none; } .ds-loop path { stroke: #ff0000; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0; transition: stroke-dashoffset 620ms cubic-bezier(0.16, 1, 0.3, 1), opacity 100ms linear; } .ds-frame:hover .ds-loop path, .ds-frame:focus-visible .ds-loop path { stroke-dashoffset: 0; opacity: 1; } .ds-frame:focus-visible { outline: 3px solid #ff0000; outline-offset: 6px; } .ds-edge { display: flex; align-items: center; gap: 0.5em; margin-top: 0.55rem; font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-stretch: 75%; font-weight: 650; font-size: 0.8125rem; line-height: 1.2; letter-spacing: 0.05em; text-transform: uppercase; font-variant-numeric: tabular-nums; } .ds-edge svg { width: 0.5em; height: 0.62em; fill: #fff; }"
+    },
+    {
+      "name": "Synthé Lower-Third",
+      "kind": "custom",
+      "refersTo": "lower-third-name",
+      "description": "TV name strap: name on a white band, role on a black band.",
+      "html": "<div class=\"ds-synthe-stage\"><span class=\"ds-synthe\"><span class=\"ds-lt-name\">Frédéric Crotta</span><span class=\"ds-lt-role\">Fondateur de Wallraff Contents</span></span></div>",
+      "css": ".ds-synthe-stage { padding: 1.5rem 0; background: #000; } .ds-synthe { display: grid; justify-items: start; } .ds-lt-name { padding: 0.45rem 0.9rem 0.4rem; background: #fff; color: #000; font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-weight: 850; font-size: 1.25rem; line-height: 1.1; } .ds-lt-role { padding: 0.3rem 0.9rem 0.35rem; background: #000; color: #fff; font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-stretch: 85%; font-weight: 650; font-size: 0.875rem; }"
+    },
+    {
+      "name": "Burned-in Subtitle",
+      "kind": "custom",
+      "refersTo": "subtitle",
+      "description": "Quotes set inside an image as a broadcast subtitle, white with a black halo, no scrim.",
+      "html": "<figure class=\"ds-sub-stage\"><p class=\"ds-subtitle\">Parce qu’aujourd’hui, le public consomme les médias autrement.</p></figure>",
+      "css": ".ds-sub-stage { margin: 0; padding: 4rem 1.5rem 1.5rem; background: #000; } .ds-subtitle { margin: 0; font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-stretch: 100%; font-weight: 600; font-size: 1.1rem; line-height: 1.3; color: #fff; text-align: center; text-wrap: balance; text-shadow: 0 0 2px #000, 0 0 2px #000, 0 1px 3px #000; }"
+    },
+    {
+      "name": "Play Button",
+      "kind": "button",
+      "refersTo": "play-button",
+      "description": "Square pencil-red play block on a 16:9 black poster; turns black and scales on hover.",
+      "html": "<button class=\"ds-play\" type=\"button\"><span class=\"ds-disc\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 4.5v15l12.5-7.5z\" fill=\"currentColor\"/></svg></span><span class=\"ds-play-label\">Voir la bande-annonce</span></button>",
+      "css": ".ds-play { display: flex; align-items: center; justify-content: center; gap: 1rem; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; color: #fff; cursor: pointer; font: inherit; } .ds-disc { display: grid; place-items: center; width: 4rem; aspect-ratio: 1; background: #d40000; color: #fff; transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-disc svg { width: 42%; height: 42%; margin-left: 8%; } .ds-play:hover .ds-disc { transform: scale(1.06); background: #000; } .ds-play:focus-visible { outline: 3px solid #ff0000; outline-offset: 3px; } .ds-play-label { font-family: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 1.25rem; text-shadow: 0 1px 3px #000, 0 0 2px #000; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Editor's Contact Sheet",
+    "overview": "The site is a planche contact on an editing table. Wallraff's real frames sit on photographic-paper white inside black, sprocketed film strips; magazine spreads and book covers lie on the same paper as prints. The editor's red grease pencil is the only colour, and it does one job: it circles what is selected and marks what to do next. Everything else is black ink and white paper.\n\nThe voice is an investigative magazine set in broadcast type. Headlines are expanded, very heavy Archivo that echoes the WALLRAFF wordmark; reading text is Source Serif 4; every object carries a small semi-condensed edge label like the frame numbers printed on film stock. The television vocabulary is literal: quotes are burned-in subtitles and people are named by a two-band synthé lower-third. Density is editorial, with large section rhythm (6rem blocks) and hard 2px black rules rather than cards.\n\nThe world refuses the agency template: no hero box, no 1-2-3 pillars, no dimmed cover blocks behind text, no logo wall used as decoration (partner logos sit in a ruled index grid with their names).",
+    "keyCharacteristics": [
+      "Pure white paper and pure black film, no greys.",
+      "One red, two strengths, one meaning: selection and next action.",
+      "Square corners everywhere; structure comes from 2px black rules.",
+      "Sprocketed film frames with number ▸ title edge labels.",
+      "A single signature gesture: the hand-drawn pencil loop redrawn on hover, focus or centring.",
+      "Broadcast devices as type: burned-in subtitles and the synthé lower-third."
+    ],
+    "rules": [
+      { "name": "The One Meaning Rule", "body": "Red marks selection and the next action, and nothing else: pencil loop, crop marks, primary CTAs, next-action underlines and arrows, current-nav mark, contact icons, play button, focus rings, form errors, the logo. Never use red for a heading, a section background, a decorative stripe or emphasis.", "section": "colors" },
+      { "name": "The Two Strengths Rule", "body": "Logo red on black and for marks; pencil red for text and fills on white. A component that crosses onto film (`.on-film`, `section--film`, footer) switches its underline and focus colour to logo red.", "section": "colors" },
+      { "name": "The No-Grey Rule", "body": "No grey text, grey fills or grey borders. The single sanctioned exception is partner logos, rendered `filter: grayscale(1) contrast(1.25)` with `mix-blend-mode: multiply` so their white grounds dissolve into the paper. Secondary emphasis is made with weight, width and size, never with tone.", "section": "colors" },
+      { "name": "The Edge Label Rule", "body": "Every work carries the same fixed label grid in the label style: two-digit frame number, a small solid triangle ▸, the title. Labels are attached to an object; they never float above a heading as a kicker.", "section": "typography" },
+      { "name": "The Width Axis Rule", "body": "Headlines widen (112% to 118%), labels narrow (75% to 85%), working text sits at 100%. Do not fake hierarchy with grey or with tracking alone.", "section": "typography" },
+      { "name": "The No-Scrim Rule", "body": "Text over a photograph is carried by the subtitle halo, never by a dimming overlay on the image.", "section": "elevation" },
+      { "name": "The Square Corner Rule", "body": "If it is not a sprocket hole or a pencil stroke, it has square corners.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep every surface pure `#ffffff` or `#000000`, and make hierarchy with Archivo's weight and width axes.",
+      "Do use `red-ink` (#d40000) for red text and fills on white, and `red` (#ff0000) for marks and anything on black.",
+      "Do give every work an edge label in the fixed grid: two-digit number ▸ title, 75% width, uppercase, tabular figures.",
+      "Do use the pencil loop as the selection state for any frame, print or rubrique, drawn over 620ms on `cubic-bezier(0.16, 1, 0.3, 1)` and static under reduced motion.",
+      "Do set quotes as burned-in subtitles and name people with the two-band synthé.",
+      "Do separate sections with 2px black rules or a full-bleed film band."
+    ],
+    "donts": [
+      "Don't use grey for text, fills or borders; partner logos are the only greyscale element.",
+      "Don't use red decoratively: no red headings, red section backgrounds or red stripes.",
+      "Don't round corners or add a radius to any control or container.",
+      "Don't lift cards or buttons with shadows; the soft print shadow belongs to physical prints alone.",
+      "Don't dim images to carry text; use the subtitle halo.",
+      "Don't put a small label above a heading as a kicker; labels belong to objects.",
+      "Don't add a second signature motion; transitions other than the pencil loop stay short state changes (160 to 260ms), with the 700ms image scale inside frames as the only longer one."
+    ]
+  }
+}

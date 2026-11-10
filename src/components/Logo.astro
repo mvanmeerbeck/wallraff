@@ -1,0 +1,43 @@
+---
+// Logo officiel (PNG 1000 px de l'ancien site).
+// À remplacer par le fichier vectoriel du logo dès qu'il est fourni.
+import { Image } from 'astro:assets';
+import horizontal from '../assets/site/logo-wallraff-01-xxl.png';
+import stacked from '../assets/site/logo-wallraff-02.png';
+
+interface Props {
+  inverse?: boolean;
+}
+const { inverse = false } = Astro.props;
+---
+{inverse ? (
+  <span class="logo-label">
+    <Image src={stacked} alt="Wallraff Contents" width={110} densities={[1, 2]} class="logo-img" />
+  </span>
+) : (
+  <Image src={horizontal} alt="Wallraff Contents" width={170} densities={[1, 2]} class="logo-img logo-img--h" loading="eager" />
+)}
+
+<style>
+  .logo-img--h {
+    width: 170px;
+    height: auto;
+  }
+
+  .logo-label {
+    display: inline-block;
+    padding: 0.9rem 1rem 0.8rem;
+    background: var(--paper);
+  }
+
+  .logo-label .logo-img {
+    width: 110px;
+    height: auto;
+  }
+
+  @media (max-width: 30rem) {
+    .logo-img--h {
+      width: 132px;
+    }
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+// Planche d'une catégorie : bandes de pellicule pour les films, tirages pour l'écrit.
+import FilmStrip from './FilmStrip.astro';
+import PrintSheet from './PrintSheet.astro';
+import { isFilm, toFrame, type Work } from '../data/works';
+
+interface Props {
+  works: Work[];
+  label: string;
+  startNumber?: number;
+}
+const { works, label, startNumber = 1 } = Astro.props;
+const items = works.map(toFrame).filter((f): f is NonNullable<typeof f> => Boolean(f));
+const film = works.length > 0 && isFilm(works[0]);
+---
+{film ? (
+  <div class="sheet-wrap">
+    <FilmStrip frames={items} label={label} layout="sheet" note={false} selected={-1} startNumber={startNumber} />
+  </div>
+) : (
+  <PrintSheet prints={items} label={label} />
+)}
+
+<style>
+  .sheet-wrap {
+    padding-inline: var(--gutter);
+  }
+</style>

@@ -1,0 +1,587 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import FilmStrip from '../components/FilmStrip.astro';
+import PrintSheet from '../components/PrintSheet.astro';
+import PencilLoop from '../components/PencilLoop.astro';
+import Icon from '../components/Icon.astro';
+import Partners from '../components/Partners.astro';
+import { workHref, workMeta } from '../data/works';
+
+import stillJeunes from '../assets/works/les-jeunes-et-la-resistance/capture.png';
+import stillBateau from '../assets/works/bateau-therapie-le-film/cnt12.jpg';
+import stillDebout from '../assets/works/rester-debout-un-documentaire-sur-la-catastrophe-de-beaune/capture-1.png';
+import stillClans from '../assets/works/guerre-des-clans/grand-banditisme-grenoblois.jpg';
+import stillAnthropo from '../assets/works/anthropologie-medico-legale/benoit-bertrand-anthropologiste.jpg';
+import stillMdina from '../assets/works/mdina-le-bijou-maltais/mdina.png';
+import stillEgalite from '../assets/works/egalite-femmes-hommes/isabelle-rome-magistrate.jpg';
+import stillMorvan from '../assets/works/le-morvan-des-petits-paris/morvan.jpg';
+import stillArgenteuil from '../assets/works/la-resistance-vue-par-les-jeunes-dargenteuil/resistance-jeunes-argenteuil.jpg';
+import stillPetra from '../assets/works/petra/mq3.jpg';
+
+import portrait from '../assets/site/frederic-crotta-wallraff.jpg';
+import imgReportages from '../assets/works/egalite-femmes-hommes/isabelle-rome-magistrate.jpg';
+import imgDocumentaires from '../assets/works/rester-debout-un-documentaire-sur-la-catastrophe-de-beaune/capture-3.png';
+import imgPresse from '../assets/works/le-notaire-a-disparu/whatsapp-image-2024-07-31-a-22.01.06_405040ed-1.jpg';
+import imgEvenements from '../assets/site/evenements.jpeg';
+import printOuEsTu from '../assets/site/ou-es-tu-plexi-40x30.jpg';
+import printSoleil from '../assets/site/soleil-rouge-40x30-1.jpg';
+import printTronche from '../assets/site/tronche-napolitaine-alu-80x60.jpg';
+import newsAffiche from '../assets/site/514456850_10161286701263779_4479127689361576777_n.jpg';
+import newsNotaire from '../assets/works/le-notaire-a-disparu/screenshot-2026-01-24-at-11.38.49.png';
+
+const reel = [
+  ['les-jeunes-et-la-resistance', stillJeunes],
+  ['bateau-therapie-le-film', stillBateau],
+  ['rester-debout-un-documentaire-sur-la-catastrophe-de-beaune', stillDebout],
+  ['guerre-des-clans', stillClans],
+  ['anthropologie-medico-legale', stillAnthropo],
+  ['mdina-le-bijou-maltais', stillMdina],
+  ['egalite-femmes-hommes', stillEgalite],
+  ['le-morvan-des-petits-paris', stillMorvan],
+  ['la-resistance-vue-par-les-jeunes-dargenteuil', stillArgenteuil],
+  ['petra', stillPetra],
+] as const;
+
+const frames = (
+  await Promise.all(
+    reel.map(async ([id, image]) => {
+      const w = await getEntry('works', id);
+      // Ces deux images portent un sous-titre incrusté en bas : on cadre par le bas pour le garder.
+      const focus = id === 'les-jeunes-et-la-resistance' || id.startsWith('rester-debout') ? 'center bottom' : undefined;
+      return w ? { href: workHref(w), image, title: w.data.title, meta: workMeta(w), focus } : undefined;
+    }),
+  )
+).filter((f): f is NonNullable<typeof f> => Boolean(f));
+
+const notaire = await getEntry('works', 'le-notaire-a-disparu');
+
+const rubriques = [
+  {
+    title: 'Production de reportages',
+    label: 'Reportages',
+    text: 'Wallraff Contents produit un certain nombre de reportages pour la télévision et les plateformes internet. Nos reportages vous permettent de mettre en lumière vos projets, vos équipes et vos engagements grâce à des contenus authentiques et percutants. Nous capturons la réalité sur le terrain pour raconter des histoires qui suscitent l’intérêt et renforcent la crédibilité de votre organisation.',
+    href: '/reportages/',
+    id: 'productiondereportages',
+    cta: 'Découvrir nos reportages',
+    image: imgReportages,
+    alt: 'Isabelle Rome, magistrate, interviewée dans le reportage Égalité Femmes-Hommes',
+  },
+  {
+    title: 'Production de documentaires',
+    label: 'Documentaires',
+    text: 'Wallraff Contents produit des documentaires pour les chaînes de télévision et les plateformes. Des formats de 52′ à 90 minutes sur des thèmes de société. Nos documentaires vous offrent l’opportunité de raconter votre histoire de manière profonde et immersive. En explorant vos projets, vos valeurs et votre impact, nous créons des contenus captivants qui touchent et fidélisent votre public.',
+    href: '/documentaires/',
+    id: 'productiondocumentaires',
+    cta: 'Découvrir nos documentaires',
+    image: imgDocumentaires,
+    alt: 'Image du documentaire Rester Debout',
+  },
+  {
+    title: 'Édition, Presse',
+    label: 'Presse – Édition',
+    text: 'Les auteurs de Wallraff publient régulièrement et peuvent participer à des travaux d’écriture.',
+    href: '/presse-edition-internet/',
+    id: 'presseeditioninternet',
+    cta: 'Découvrir nos productions',
+    image: imgPresse,
+    alt: 'Couverture du magazine Society : Le notaire a disparu',
+  },
+  {
+    title: 'Évènements',
+    label: 'Évènements',
+    text: 'Wallraff participe également à l’organisation de vos évènements. Ainsi, son fondateur a participé à la création d’un évènement qui va devenir annuel dans la ville de Luxeuil-les-Bains.',
+    href: '/evenements/',
+    id: 'evenements',
+    cta: 'Découvrir les évènements',
+    image: imgEvenements,
+    alt: 'Les intervenants de l’évènement « Quelle info demain ? » à Luxeuil-les-Bains',
+  },
+];
+
+const prints = [
+  { href: '/galerie/', image: printOuEsTu, title: 'Où es-tu ?', meta: 'Plexi 40 × 30', alt: 'Photographie « Où es-tu ? » de Frédéric Crotta' },
+  { href: '/galerie/', image: printSoleil, title: 'Soleil rouge', meta: '40 × 30', alt: 'Photographie « Soleil rouge » de Frédéric Crotta' },
+  { href: '/galerie/', image: printTronche, title: 'Tronche napolitaine', meta: 'Alu 80 × 60', alt: 'Photographie « Tronche napolitaine » de Frédéric Crotta' },
+];
+
+const news = [
+  { href: '/evenements/', image: newsAffiche, title: 'Évènement « Quelle info demain ? »', alt: 'Affiche de l’évènement « Quelle info demain ? »' },
+  { href: '/galerie/', image: printSoleil, title: 'Frédéric Crotta expose', alt: '' },
+  { href: notaire ? workHref(notaire) : '/presse-edition-internet/', image: newsNotaire, title: 'Prix du Polar à Reims et le Prix des Lanceurs d’Alerte', alt: '' },
+];
+---
+<Base
+  title="Wallraff Contents"
+  description="Wallraff Contents, producteur de contenus 100 % éditorial : télévision, évènements, réseaux sociaux, presse, édition. Reportages et documentaires fondés sur l’exigence du grand reportage."
+  ogImage={stillJeunes}
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <h1 id="hero-title" class="hero-title">Producteur de contenus <span class="hero-title-line">100&nbsp;% éditorial</span></h1>
+    </div>
+
+    <FilmStrip frames={frames} label="Nos films : documentaires et reportages" eager={4} />
+
+    <div class="wrap hero-foot">
+      <p class="hero-formats edge">Télévision – Évènements – Réseaux sociaux – Presse – Édition</p>
+      <div class="hero-actions" data-primary-actions>
+        <a class="action" href="/contact/">Demander un rendez-vous <Icon name="arrow" /></a>
+        <a class="action action--quiet" href="/realisations/">Voir les réalisations</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section founder" id="apropos" aria-labelledby="founder-title">
+    <div class="wrap founder-grid">
+      <figure class="interview on-film">
+        <Image src={portrait} alt="Frédéric Crotta, grand reporter, fondateur de Wallraff Contents" widths={[360, 540, 720]} sizes="(max-width: 56rem) 92vw, 34rem" class="interview-image" />
+        <blockquote class="interview-quote">
+          <p class="subtitle">Parce qu’aujourd’hui, le public consomme les médias autrement, j’ai choisi de créer une agence spécialisée dans la production de contenus éditoriaux et dans la réalisation de vidéos.</p>
+        </blockquote>
+        <figcaption class="lower-third">
+          <span class="lt-name">Frédéric Crotta</span>
+          <span class="lt-role">Fondateur de Wallraff Contents</span>
+        </figcaption>
+      </figure>
+      <div class="founder-text">
+        <h2 id="founder-title" class="section-title">Wallraff Contents, votre agence éditoriale</h2>
+        <p class="lede">Chez Wallraff Contents, on sait imaginer, créer, conceptualiser, planifier et organiser des projets éditoriaux que ce soit pour la Télévision, le Web, la Presse ou l’Édition.</p>
+        <p>Fondée par Frédéric Crotta, ex-grand reporter à France TV, l’agence dispose d’un réseau de journalistes, de cameramen, monteurs, post-producteurs, voix off, etc. afin d’offrir une garantie de qualité optimale à vos contenus.</p>
+        <a class="more" href="/a-propos-de-wallraff/">À propos de Wallraff <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section offer" aria-labelledby="offer-title">
+    <div class="wrap">
+      <h2 id="offer-title" class="section-title">Offrez-vous une solution avec Wallraff Contents</h2>
+      <p class="offer-deck">Expérience. <span class="nowrap">Savoir-faire.</span> Réseau.</p>
+      <ul class="offer-list">
+        <li>
+          <h3>Une expertise éprouvée</h3>
+          <p>Conseil éditorial – suivi de projet – recherche de documentation et d’informations – écriture de synopsis, rédaction d’articles de presse, web et corporate – production de podcasts – édition – brand content – motion design.</p>
+        </li>
+        <li>
+          <h3>Accompagnement et suivi personnalisés</h3>
+          <p>Notre équipe d’experts pilote la production de vos contenus éditoriaux pour assurer une qualité au niveau de vos attentes.</p>
+        </li>
+        <li>
+          <h3>Des thématiques variées</h3>
+          <p>Notre agence peut produire des contenus éditoriaux dans des domaines divers et variés et met tout en œuvre pour vous rendre un résultat à la hauteur de vos ambitions, autant sur le fond que sur la forme.</p>
+        </li>
+      </ul>
+      <a class="action" href="/contact/">Demander un rendez-vous <Icon name="arrow" /></a>
+    </div>
+  </section>
+
+  <section class="section section--film rubriques" aria-labelledby="rubriques-title">
+    <div class="wrap">
+      <h2 id="rubriques-title" class="section-title">Découvrez nos types de contenus clés en main</h2>
+      <ol class="rub-list">
+        {rubriques.map((r, i) => (
+          <li class="rub" id={r.id} data-print data-selected="false">
+            <div class="rub-frame">
+              <div class="rub-image">
+                <Image src={r.image} alt={r.alt} widths={[360, 540, 720, 960]} sizes="(max-width: 56rem) 92vw, 30vw" />
+                <PencilLoop variant={i} />
+              </div>
+              <p class="rub-edge edge" aria-hidden="true">
+                <span>{String(i + 1).padStart(2, '0')}</span>
+                <svg viewBox="0 0 8 10" focusable="false"><path d="M0 0 8 5 0 10z" /></svg>
+                <span>{r.label}</span>
+              </p>
+            </div>
+            <div class="rub-text">
+              <h3 class="rub-title"><a href={r.href}>{r.title}</a></h3>
+              <p>{r.text}</p>
+              <span class="more" aria-hidden="true">{r.cta} <Icon name="arrow" /></span>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section partners-section" aria-labelledby="partners-title">
+    <div class="wrap">
+      <h2 id="partners-title" class="section-title">Nos clients et partenaires</h2>
+      <Partners />
+    </div>
+  </section>
+
+  <section class="section galerie" id="galerie" aria-labelledby="galerie-title">
+    <div class="wrap">
+      <div class="galerie-head">
+        <h2 id="galerie-title" class="section-title">Galerie</h2>
+        <p class="lede">Les photographies de Frédéric Crotta, tirées en plexi et en aluminium.</p>
+      </div>
+      <PrintSheet prints={prints} label="Photographies de la galerie" />
+      <p class="galerie-more"><a class="more" href="/galerie/">Découvrir l’exposition photos <Icon name="arrow" /></a></p>
+    </div>
+  </section>
+
+  <section class="section news" id="actualites" aria-labelledby="news-title">
+    <div class="wrap">
+      <h2 id="news-title" class="section-title">Actualités</h2>
+      <ul class="news-list">
+        {news.map((n) => (
+          <li class="news-item">
+            <a href={n.href} class="news-link">
+              <Image src={n.image} alt={n.alt} widths={[240, 360, 480]} sizes="(max-width: 48rem) 30vw, 10rem" class="news-image" />
+              <span class="news-title">{n.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-top: clamp(1.5rem, 4vh, 3rem);
+    padding-bottom: var(--space-8);
+  }
+
+  .hero-title {
+    font-size: var(--step-5);
+    font-stretch: 118%;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    margin-bottom: clamp(1.25rem, 3.5vh, 2.5rem);
+  }
+
+  .hero-title-line {
+    display: block;
+  }
+
+  .hero-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5) var(--space-6);
+    margin-top: var(--space-5);
+  }
+
+  .hero-formats {
+    font-size: 0.9375rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  /* Le fondateur, cadré comme un témoin de ses propres films. */
+  .founder-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 34rem) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-6) clamp(2rem, 6vw, 6rem);
+  }
+
+  .interview {
+    position: relative;
+    margin: 0;
+    background: var(--ink);
+  }
+
+  .interview-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .interview-quote {
+    position: absolute;
+    inset: auto 6% 7%;
+    margin: 0;
+  }
+
+  .interview-quote .subtitle {
+    font-size: clamp(0.95rem, 0.8rem + 0.55vw, 1.2rem);
+  }
+
+  /* Le synthé : nom sur un bandeau blanc, fonction sur un bandeau noir. */
+  .lower-third {
+    position: absolute;
+    top: 7%;
+    left: 0;
+    display: grid;
+    justify-items: start;
+  }
+
+  .lt-name {
+    padding: 0.45rem 0.9rem 0.4rem;
+    background: var(--paper);
+    font-family: var(--font-display);
+    font-weight: 850;
+    font-size: var(--step-1);
+    line-height: 1.1;
+  }
+
+  .lt-role {
+    padding: 0.3rem 0.9rem 0.35rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-display);
+    font-stretch: 85%;
+    font-weight: 650;
+    font-size: 0.875rem;
+  }
+
+  .founder-text {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+    max-width: 40rem;
+  }
+
+  .offer {
+    border-top: 2px solid var(--ink);
+  }
+
+  .offer-deck {
+    margin-top: var(--space-4);
+    font-family: var(--font-display);
+    font-weight: 850;
+    font-stretch: 112%;
+    font-size: var(--step-3);
+    line-height: 1.05;
+  }
+
+  .offer-list {
+    max-width: 62rem;
+    margin: var(--space-7) 0 var(--space-7);
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--ink);
+  }
+
+  .offer-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+    gap: var(--space-3) var(--space-6);
+    padding-block: var(--space-5);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .offer-list h3 {
+    font-size: var(--step-1);
+    font-stretch: 100%;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .offer-list p {
+    max-width: 60ch;
+  }
+
+  /* Sommaire : les quatre rubriques sur la pellicule. */
+  .rub-list {
+    display: grid;
+    gap: 0;
+    margin: var(--space-7) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--paper);
+  }
+
+  .rub {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: var(--space-5) clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding-block: var(--space-6);
+    border-bottom: 2px solid var(--paper);
+  }
+
+  /* Chaque rubrique est un photogramme découpé dans la bande. */
+  .rub-frame {
+    position: relative;
+    padding: 1.9rem 0 2.1rem;
+  }
+
+  .rub-frame::before,
+  .rub-frame::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    height: 0.75rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='12'%3E%3Crect x='5' y='2' width='12' height='8' rx='2' fill='white'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 1.375rem 0.75rem;
+  }
+
+  .rub-frame::before {
+    top: 0.5rem;
+  }
+
+  .rub-frame::after {
+    bottom: 0.5rem;
+  }
+
+  .rub-image {
+    position: relative;
+  }
+
+  .rub-edge {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-top: 0.55rem;
+  }
+
+  .rub-edge svg {
+    width: 0.5em;
+    height: 0.62em;
+    fill: var(--paper);
+  }
+
+  .rub-image :global(img) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+
+  .rub-text {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+
+  .rub-title {
+    font-size: var(--step-3);
+  }
+
+  .rub-title a {
+    text-decoration: none;
+  }
+
+  /* Toute la rubrique est cliquable ; le lien reste le titre. */
+  .rub-title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .rub:hover .rub-title a,
+  .rub:focus-within .rub-title a {
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 0.07em;
+  }
+
+  .rub-text p {
+    max-width: 58ch;
+  }
+
+  .partners-section {
+    padding-bottom: var(--space-8);
+  }
+
+  .partners-section .section-title {
+    margin-bottom: var(--space-6);
+  }
+
+  .galerie {
+    border-top: 2px solid var(--ink);
+  }
+
+  .galerie-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-4) var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .galerie-more {
+    margin-top: var(--space-7);
+  }
+
+  .news {
+    border-top: 2px solid var(--ink);
+    padding-bottom: var(--space-8);
+  }
+
+  .news-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .news-link {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: var(--space-4);
+    align-items: start;
+    text-decoration: none;
+  }
+
+  .news-image {
+    width: 6rem;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .news-title {
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: var(--step-1);
+    line-height: 1.25;
+  }
+
+  .news-link:hover .news-title {
+    text-decoration: underline;
+    text-decoration-color: var(--red-ink);
+    text-decoration-thickness: 0.08em;
+  }
+
+  @media (max-width: 64rem) {
+    .news-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .offer-list li {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 56rem) {
+    .founder-grid,
+    .rub {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-foot {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.rub[data-print]').forEach((item) => {
+    const on = () => (item.dataset.selected = 'true');
+    const off = () => (item.dataset.selected = 'false');
+    item.addEventListener('pointerenter', on);
+    item.addEventListener('pointerleave', off);
+    item.addEventListener('focusin', on);
+    item.addEventListener('focusout', off);
+  });
+</script>

@@ -1,0 +1,184 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Icon from '../../components/Icon.astro';
+import afficheJaune from '../../assets/site/unknown-1-1.jpeg';
+import afficheIntervenants from '../../assets/site/intervenants-quid-1-version-finale-1.png';
+import afficheRouge from '../../assets/site/514456850_10161286701263779_4479127689361576777_n.jpg';
+import coupure from '../../assets/site/ch.jpeg.jpg';
+import photoGroupe from '../../assets/site/evenements.jpeg';
+
+const affiches = [
+  { src: afficheRouge, alt: 'Affiche « Quelle info demain ? » : conférence-débat le 12 septembre à 19 h, espace Frichet, Luxeuil-les-Bains ; exposition photo-journalisme du 8 au 21 septembre ; dédicaces-rencontre le 13 septembre à la librairie les Cyclamens.' },
+  { src: afficheIntervenants, alt: 'Affiche des intervenants de QuID #1 : Catherine Boullay, Vincent Nouzille, Thibaut Bruttin, Juin, Daniel Fallet et Sandrine Chesnel.' },
+  { src: afficheJaune, alt: 'Affiche « Quelle info demain ? », version jaune.' },
+];
+---
+<Base title="Évènements" description="Wallraff participe à l’organisation de vos évènements." ogImage={photoGroupe}>
+  <PageHead title="Évènements" lede="Wallraff participe à l’organisation de vos évènements.">
+    <p class="page-more">Ainsi, son fondateur, Frédéric Crotta, a participé à la création d’un évènement qui va devenir annuel dans la ville de Luxeuil-les-Bains.</p>
+  </PageHead>
+
+  <section class="event on-film" aria-labelledby="quid-title">
+    <div class="wrap event-grid">
+      <div class="event-text">
+        <h2 id="quid-title" class="event-title">Quelle info demain&nbsp;?</h2>
+        <dl class="event-facts">
+          <div><dt class="edge">Conférence-débat</dt><dd>12 septembre 2025, 19 h, espace Frichet, Luxeuil-les-Bains</dd></div>
+          <div><dt class="edge">Exposition photo-journalisme</dt><dd>Du 8 au 21 septembre, espace Frichet</dd></div>
+          <div><dt class="edge">Dédicaces-rencontre</dt><dd>13 septembre, librairie les Cyclamens</dd></div>
+        </dl>
+      </div>
+      <figure class="event-photo">
+        <Image src={photoGroupe} alt="Les intervenants de « Quelle info demain ? » réunis sur scène à Luxeuil-les-Bains" widths={[480, 720, 960, 1200]} sizes="(max-width: 56rem) 92vw, 50vw" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap affiches" aria-labelledby="affiches-title">
+    <h2 id="affiches-title" class="section-title">Les affiches</h2>
+    <ul class="affiche-list">
+      {affiches.map((a) => (
+        <li>
+          <a href={a.src.src} class="affiche-link">
+            <Image src={a.src} alt={a.alt} widths={[320, 480, 720]} sizes="(max-width: 48rem) 92vw, 30vw" class="affiche-img" />
+            <span class="affiche-zoom edge">Agrandir <Icon name="arrow" /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap presse" aria-labelledby="presse-title">
+    <div class="presse-grid">
+      <h2 id="presse-title" class="section-title">On en parle dans la presse</h2>
+      <a href={coupure.src} class="clipping">
+        <Image src={coupure} alt="Coupure de presse annonçant « Quelle info demain ? », vendredi 12 septembre à 19 heures, espace Frichet, Luxeuil-les-Bains" widths={[400, 600, 900]} sizes="(max-width: 56rem) 92vw, 34rem" class="clipping-img" />
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-more {
+    margin-top: var(--space-4);
+    max-width: 60ch;
+  }
+
+  .event {
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: var(--space-8);
+  }
+
+  .event-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .event-title {
+    font-size: var(--step-4);
+    font-stretch: 118%;
+    font-weight: 900;
+  }
+
+  .event-facts {
+    display: grid;
+    gap: var(--space-5);
+    margin: var(--space-6) 0 0;
+    padding-top: var(--space-5);
+    border-top: 2px solid var(--paper);
+  }
+
+  .event-facts dt {
+    color: var(--paper);
+  }
+
+  .event-facts dd {
+    margin: 0.3rem 0 0;
+    font-family: var(--font-display);
+    font-weight: 650;
+    font-size: var(--step-1);
+    line-height: 1.3;
+  }
+
+  .event-photo {
+    margin: 0;
+  }
+
+  .event-photo :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .affiches {
+    padding-block: var(--space-8);
+  }
+
+  .affiche-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: var(--space-6);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .affiche-link {
+    display: grid;
+    gap: var(--space-3);
+    text-decoration: none;
+  }
+
+  .affiche-img {
+    width: 100%;
+    height: auto;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.18), 0 10px 24px -12px rgb(0 0 0 / 0.35);
+  }
+
+  .affiche-zoom {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+
+  .affiche-zoom :global(svg) {
+    width: 1em;
+    height: 1em;
+  }
+
+  .presse {
+    padding-block: var(--space-8) var(--space-9);
+    border-top: 2px solid var(--ink);
+  }
+
+  .presse-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 34rem);
+    gap: var(--space-7);
+    align-items: start;
+  }
+
+  .clipping {
+    display: block;
+  }
+
+  .clipping-img {
+    width: 100%;
+    height: auto;
+    transform: rotate(-1.2deg);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.18), 0 14px 30px -14px rgb(0 0 0 / 0.4);
+  }
+
+  @media (max-width: 56rem) {
+    .event-grid,
+    .presse-grid,
+    .affiche-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

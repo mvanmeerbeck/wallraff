@@ -1,0 +1,314 @@
+---
+// Formulaire de demande de rendez-vous.
+// Avec une clé Web3Forms (PUBLIC_WEB3FORMS_KEY), le message part directement ;
+// sans clé, l'envoi ouvre la messagerie du visiteur avec le message déjà rédigé.
+import Icon from './Icon.astro';
+import { contact } from '../data/site';
+
+const key = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const projectTypes = ['Reportage', 'Documentaire', 'Presse – Édition', 'Évènement', 'Réseaux sociaux', 'Autre'];
+---
+<form class="cform" data-cform data-key={key} data-email={contact.email} novalidate>
+  <input type="hidden" name="subject" value="Demande de rendez-vous depuis wallraff.fr" />
+  <input type="hidden" name="from_name" value="wallraff.fr" />
+  <input type="checkbox" name="botcheck" class="cform-trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  <div class="cform-row">
+    <div class="field">
+      <label for="f-prenom">Prénom</label>
+      <input id="f-prenom" name="prenom" type="text" autocomplete="given-name" required aria-describedby="e-prenom" />
+      <p class="field-error" id="e-prenom" hidden>Indiquez votre prénom.</p>
+    </div>
+    <div class="field">
+      <label for="f-nom">Nom</label>
+      <input id="f-nom" name="nom" type="text" autocomplete="family-name" required aria-describedby="e-nom" />
+      <p class="field-error" id="e-nom" hidden>Indiquez votre nom.</p>
+    </div>
+  </div>
+
+  <div class="cform-row">
+    <div class="field">
+      <label for="f-email">Adresse e-mail</label>
+      <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-email" />
+      <p class="field-error" id="e-email" hidden>Indiquez une adresse e-mail valide, par exemple nom@domaine.fr.</p>
+    </div>
+    <div class="field">
+      <label for="f-tel">Téléphone <span class="opt">(facultatif)</span></label>
+      <input id="f-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel" />
+    </div>
+  </div>
+
+  <div class="cform-row">
+    <div class="field">
+      <label for="f-org">Organisation <span class="opt">(facultatif)</span></label>
+      <input id="f-org" name="organisation" type="text" autocomplete="organization" />
+    </div>
+    <div class="field">
+      <label for="f-type">Votre projet</label>
+      <div class="select">
+        <select id="f-type" name="projet" required aria-describedby="e-type">
+          <option value="" selected disabled>Choisir…</option>
+          {projectTypes.map((t) => <option value={t}>{t}</option>)}
+        </select>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
+      </div>
+      <p class="field-error" id="e-type" hidden>Choisissez le type de projet.</p>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="f-message">Message</label>
+    <textarea id="f-message" name="message" rows="7" required aria-describedby="e-message"></textarea>
+    <p class="field-error" id="e-message" hidden>Décrivez votre projet en quelques lignes.</p>
+  </div>
+
+  <div class="cform-submit">
+    <button class="action" type="submit" data-submit>
+      <span data-submit-label>Envoyer la demande</span>
+      <Icon name="arrow" />
+    </button>
+    <p class="cform-note">Vos coordonnées servent uniquement à vous répondre.</p>
+  </div>
+
+  <div class="cform-status" data-status role="status" aria-live="polite" tabindex="-1"></div>
+</form>
+
+<style>
+  .cform {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .cform-trap {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .cform-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+
+  .field label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .opt {
+    font-weight: 500;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.7rem 0.85rem;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: inherit;
+    font-size: 1.0625rem;
+    scroll-margin-top: calc(var(--header-h) + 3rem);
+    appearance: none;
+  }
+
+  .field textarea {
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  .field input:focus-visible,
+  .field select:focus-visible,
+  .field textarea:focus-visible {
+    outline: 3px solid var(--red-ink);
+    outline-offset: 0;
+    border-color: var(--red-ink);
+  }
+
+  .field [aria-invalid='true'] {
+    border-color: var(--red-ink);
+    border-width: 3px;
+  }
+
+  .field-error[hidden] {
+    display: none;
+  }
+
+  .field-error {
+    display: flex;
+    gap: 0.4rem;
+    color: var(--red-ink);
+    font-family: var(--font-display);
+    font-weight: 650;
+    font-size: 0.9375rem;
+  }
+
+  .select {
+    position: relative;
+  }
+
+  .select select {
+    padding-right: 2.75rem;
+    cursor: pointer;
+  }
+
+  .select svg {
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: translateY(-50%);
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  .cform-submit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-5);
+    margin-top: var(--space-2);
+  }
+
+  .cform-submit [data-submit][aria-busy='true'] {
+    cursor: progress;
+    opacity: 0.85;
+  }
+
+  .cform-note {
+    font-size: 0.9375rem;
+    max-width: 34ch;
+  }
+
+  .cform-status:empty {
+    display: none;
+  }
+
+  .cform-status {
+    padding: var(--space-5);
+    border: 3px solid var(--ink);
+    font-family: var(--font-display);
+    font-weight: 650;
+    font-size: var(--step-1);
+    line-height: 1.4;
+  }
+
+  .cform-status[data-kind='error'] {
+    border-color: var(--red-ink);
+  }
+
+  .cform-status a {
+    font-weight: 750;
+  }
+
+  @media (max-width: 40rem) {
+    .cform-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-cform]');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
+    const required = Array.from(form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]'));
+
+    const showError = (field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, invalid: boolean) => {
+      const err = document.getElementById(field.getAttribute('aria-describedby') ?? '');
+      field.setAttribute('aria-invalid', String(invalid));
+      if (err) err.hidden = !invalid;
+    };
+
+    required.forEach((field) => {
+      const check = () => showError(field, !field.checkValidity());
+      field.addEventListener('blur', () => {
+        if (field.value.trim() !== '' || field.getAttribute('aria-invalid') === 'true') check();
+      });
+      field.addEventListener('input', () => {
+        if (field.getAttribute('aria-invalid') === 'true') check();
+      });
+      field.addEventListener('change', () => {
+        if (field.getAttribute('aria-invalid') === 'true') check();
+      });
+    });
+
+    const setStatus = (kind: 'ok' | 'error', html: string) => {
+      status.dataset.kind = kind;
+      status.innerHTML = html;
+      status.focus();
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const invalid = required.filter((f) => !f.checkValidity());
+      required.forEach((f) => showError(f, !f.checkValidity()));
+      if (invalid.length) {
+        invalid[0].focus();
+        return;
+      }
+      const data = new FormData(form);
+      if (data.get('botcheck')) return;
+      const email = form.dataset.email ?? '';
+      const key = form.dataset.key ?? '';
+
+      if (!key) {
+        // Sans service d'envoi configuré : message pré-rédigé dans la messagerie du visiteur.
+        const lines = [
+          `Projet : ${data.get('projet')}`,
+          `Organisation : ${data.get('organisation') || '-'}`,
+          `Téléphone : ${data.get('telephone') || '-'}`,
+          '',
+          String(data.get('message')),
+          '',
+          `${data.get('prenom')} ${data.get('nom')}`,
+          String(data.get('email')),
+        ];
+        const href = `mailto:${email}?subject=${encodeURIComponent('Demande de rendez-vous')}&body=${encodeURIComponent(lines.join('\n'))}`;
+        window.location.href = href;
+        setStatus('ok', `Votre messagerie s’ouvre avec le message prêt à partir. Si rien ne s’ouvre, écrivez directement à <a href="mailto:${email}">${email}</a>.`);
+        return;
+      }
+
+      data.set('access_key', key);
+      data.delete('botcheck');
+      submit.setAttribute('aria-busy', 'true');
+      submit.disabled = true;
+      submitLabel.textContent = 'Envoi en cours…';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: data,
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || json.success === false) throw new Error('send');
+        form.querySelectorAll('.field, .cform-row, .cform-submit').forEach((el) => ((el as HTMLElement).hidden = true));
+        setStatus('ok', 'Merci, votre demande est bien partie. Nous revenons vers vous pour convenir d’un rendez-vous.');
+      } catch {
+        setStatus('error', `L’envoi n’a pas abouti, votre message est toujours dans le formulaire. Réessayez, ou écrivez à <a href="mailto:${email}">${email}</a>.`);
+      } finally {
+        submit.removeAttribute('aria-busy');
+        submit.disabled = false;
+        submitLabel.textContent = 'Envoyer la demande';
+      }
+    });
+  }
+</script>

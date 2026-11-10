@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import PrintSheet from '../../components/PrintSheet.astro';
+import Icon from '../../components/Icon.astro';
+import vieuxBoucau from '../../assets/site/dormir-a-vieux-boucau-80x60.png';
+import ouEsTu from '../../assets/site/ou-es-tu-plexi-40x30.jpg';
+import soleil from '../../assets/site/soleil-rouge-40x30-1.jpg';
+import tronche from '../../assets/site/tronche-napolitaine-alu-80x60.jpg';
+import parisDanse from '../../assets/site/paris-danse.png';
+import martyrs from '../../assets/site/rue-des-martyrs-.png';
+import expo1 from '../../assets/site/img20250910152803-1.jpg';
+import expo2 from '../../assets/site/img20250910152811.jpg';
+import expo3 from '../../assets/site/img20250910152834.jpg';
+import expo4 from '../../assets/site/img20250910155037.jpg';
+
+const prints = [
+  { image: vieuxBoucau, title: 'Dormir à Vieux Boucau', meta: '80 × 60' },
+  { image: ouEsTu, title: 'Où es-tu ?', meta: 'Plexi 40 × 30' },
+  { image: soleil, title: 'Soleil rouge', meta: '40 × 30' },
+  { image: tronche, title: 'Tronche napolitaine', meta: 'Alu 80 × 60' },
+  { image: parisDanse, title: 'Paris danse', meta: 'Plexi 40 × 30' },
+  { image: martyrs, title: 'Rue des martyrs', meta: 'Plexi 40 × 30' },
+].map((p) => ({ ...p, href: p.image.src, alt: `Photographie « ${p.title} » de Frédéric Crotta` }));
+
+const expo = [expo1, expo2, expo3, expo4];
+---
+<Base title="Galerie" description="Les photographies de Frédéric Crotta : formats et tirages." ogImage={tronche}>
+  <PageHead title="Galerie" lede="Les photographies de Frédéric Crotta, tirées en plexi et en aluminium." />
+
+  <section class="wrap galerie" aria-label="Tirages">
+    <PrintSheet prints={prints} label="Tirages de Frédéric Crotta" />
+    <p class="galerie-ask">
+      Une question sur un tirage&nbsp;? <a class="more" href="/contact/">Nous écrire <Icon name="arrow" /></a>
+    </p>
+  </section>
+
+  <section class="expo on-film" aria-labelledby="expo-title">
+    <div class="wrap">
+      <h2 id="expo-title" class="section-title">L’exposition</h2>
+      <ul class="expo-list">
+        {expo.map((src, i) => (
+          <li>
+            <Image src={src} alt={`Vue de l’exposition des photographies de Frédéric Crotta (${i + 1} sur 4)`} widths={[480, 720, 960, 1280]} sizes="(max-width: 48rem) 92vw, 45vw" class="expo-img" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .galerie {
+    padding-bottom: var(--space-8);
+  }
+
+  .galerie-ask {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 2px solid var(--ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+  }
+
+  .expo {
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .expo-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .expo-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  @media (max-width: 48rem) {
+    .expo-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

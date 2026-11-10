@@ -1,0 +1,66 @@
+# Wallraff Contents: site statique Astro sur O2Switch (Apache).
+
+Options -Indexes
+DirectorySlash On
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS partout
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # www vers le domaine nu
+  RewriteCond %{HTTP_HOST} ^www\.wallraff\.fr$ [NC]
+  RewriteRule ^ https://wallraff.fr%{REQUEST_URI} [L,R=301]
+
+  # Anciennes adresses WordPress
+  RewriteRule ^realisations/internet/titre-lorem-ipsum11\.html$ /realisations/internet/refonte-sfml/ [L,R=301]
+  RewriteRule ^realisations/([a-z-]+)/([a-z0-9-]+)\.html$ /realisations/$1/$2/ [L,R=301]
+  RewriteRule ^realisations/documentaire/?$ /documentaires/ [L,R=301]
+  RewriteRule ^realisations/reportage/?$ /reportages/ [L,R=301]
+  RewriteRule ^realisations/presse/?$ /presse-edition-internet/#presse [L,R=301,NE]
+  RewriteRule ^realisations/edition/?$ /presse-edition-internet/#edition [L,R=301,NE]
+  RewriteRule ^realisations/internet/?$ /presse-edition-internet/#internet [L,R=301,NE]
+  RewriteRule ^documentaire/?$ /documentaires/ [L,R=301]
+  RewriteRule ^reportage/?$ /reportages/ [L,R=301]
+  RewriteRule ^presse/?$ /presse-edition-internet/#presse [L,R=301,NE]
+  RewriteRule ^edition/?$ /presse-edition-internet/#edition [L,R=301,NE]
+  RewriteRule ^internet/?$ /presse-edition-internet/#internet [L,R=301,NE]
+  RewriteRule ^realisations/tag/.*$ /realisations/ [L,R=301]
+  RewriteRule ^author/.*$ /a-propos-de-wallraff/ [L,R=301]
+  RewriteRule ^politique-confidentialite/?$ /mentions-legales/ [L,R=302]
+  RewriteRule ^wp-content/uploads/2024/12/Disparition-Society-237\.pdf$ /files/disparition-society-237.pdf [L,R=301]
+  RewriteRule ^category/.*$ /realisations/ [L,R=301]
+  RewriteRule ^actualites/?$ /#actualites [L,R=301,NE]
+  RewriteRule ^plan-site/?$ /realisations/ [L,R=301]
+  RewriteRule ^(feed|comments/feed)/?$ / [L,R=301]
+  RewriteRule ^sitemap_index\.xml$ /sitemap-index.xml [L,R=301]
+  RewriteRule ^wp-(admin|login\.php).*$ / [L,R=301]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header unset X-Powered-By
+
+  # Fichiers versionnés par Astro (/_astro/) : cache long ; le reste : un jour
+  <FilesMatch "\.(js|css|woff2|avif|webp|jpg|jpeg|png|svg|ico)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+  <If "%{REQUEST_URI} =~ m#^/_astro/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/xml text/xml
+</IfModule>

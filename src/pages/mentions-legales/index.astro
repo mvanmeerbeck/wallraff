@@ -1,0 +1,33 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+
+const page = await getEntry('pages', 'mentions-legales');
+if (!page) throw new Error('mentions-legales manquant');
+const { Content } = await render(page);
+---
+<Base title="Mentions légales" description="Mentions légales du site wallraff.fr : éditeur, hébergeur, propriété intellectuelle et données personnelles." closing={false}>
+  <PageHead title="Mentions légales" />
+  <div class="wrap legal">
+    <div class="prose">
+      <Content />
+    </div>
+  </div>
+</Base>
+
+<style>
+  .legal {
+    padding-bottom: var(--space-9);
+  }
+
+  .legal :global(hr) {
+    margin-block: var(--space-6);
+    border: 0;
+    border-top: 2px solid var(--ink);
+  }
+
+  .legal :global(h2) {
+    font-size: var(--step-2);
+  }
+</style>

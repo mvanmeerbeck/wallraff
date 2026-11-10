@@ -1,0 +1,40 @@
+---
+// En-tête de page intérieure : titre de une, chapeau facultatif.
+interface Props {
+  title: string;
+  lede?: string;
+}
+const { title, lede } = Astro.props;
+---
+<header class="wrap page-head">
+  <h1 class="page-title">{title}</h1>
+  {lede && <p class="lede page-lede">{lede}</p>}
+  <slot />
+</header>
+
+<style>
+  .page-head {
+    padding-block: var(--space-8) var(--space-7);
+  }
+
+  .page-title {
+    font-size: clamp(2.2rem, 1.2rem + 5.4vw, 6rem);
+    font-stretch: 118%;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    max-width: 16ch;
+  }
+
+  @media (max-width: 30rem) {
+    .page-title {
+      font-stretch: 100%;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .page-lede {
+    margin-top: var(--space-5);
+    max-width: 60ch;
+  }
+</style>

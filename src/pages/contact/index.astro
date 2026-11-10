@@ -1,0 +1,158 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Icon from '../../components/Icon.astro';
+import { contact } from '../../data/site';
+import { socials } from '../../data/content';
+import portrait from '../../assets/site/frederic-crotta-wallraff.jpg';
+---
+<Base title="Contact" description="Prenons contact et parlons de votre projet." closing={false} mobileBar={false}>
+  <PageHead title="Contact" lede="Prenons contact et parlons de votre projet." />
+
+  <section class="wrap contact" aria-label="Contact">
+    <div class="contact-form">
+      <p class="lede">Vous pouvez contacter Wallraff Contents directement par e-mail, par téléphone ou via le formulaire ci-dessous.</p>
+      <ContactForm />
+    </div>
+
+    <aside class="contact-side" aria-label="Coordonnées">
+      <figure class="contact-portrait on-film">
+        <Image src={portrait} alt="Frédéric Crotta, fondateur de Wallraff Contents" widths={[240, 360, 480]} sizes="(max-width: 56rem) 40vw, 16rem" />
+        <figcaption class="lower-third">
+          <span class="lt-name">Frédéric Crotta</span>
+          <span class="lt-role">Fondateur de Wallraff Contents</span>
+        </figcaption>
+      </figure>
+      <ul class="contact-lines">
+        <li><a href={`tel:${contact.phoneHref}`}><Icon name="phone" /> {contact.phone}</a></li>
+        <li><a href={`mailto:${contact.email}`}><Icon name="mail" /> {contact.email}</a></li>
+      </ul>
+      <p class="contact-address">Wallraff Contents<br />15 rue de l’Aqueduc<br />75010 Paris</p>
+      {socials.length > 0 && (
+        <ul class="contact-socials">
+          {socials.map((s) => <li><a href={s.url} rel="noopener" target="_blank">{s.label}<Icon name="external" /><span class="visually-hidden"> (nouvel onglet)</span></a></li>)}
+        </ul>
+      )}
+    </aside>
+  </section>
+</Base>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: minmax(0, 46rem) minmax(0, 20rem);
+    justify-content: space-between;
+    gap: var(--space-8) var(--space-7);
+    padding-bottom: var(--space-9);
+  }
+
+  .contact-form {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .contact-side {
+    display: grid;
+    gap: var(--space-5);
+    align-content: start;
+  }
+
+  .contact-portrait {
+    position: relative;
+    margin: 0;
+    max-width: 16rem;
+  }
+
+  .contact-portrait :global(img) {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .lower-third {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    display: grid;
+    justify-items: start;
+  }
+
+  .lt-name {
+    padding: 0.35rem 0.75rem 0.3rem;
+    background: var(--paper);
+    font-family: var(--font-display);
+    font-weight: 850;
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+
+  .lt-role {
+    padding: 0.25rem 0.75rem 0.3rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-display);
+    font-stretch: 85%;
+    font-weight: 650;
+    font-size: 0.8125rem;
+  }
+
+  .contact-lines,
+  .contact-socials {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact-lines a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: var(--step-1);
+    text-decoration: none;
+  }
+
+  .contact-lines a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--red-ink);
+  }
+
+  .contact-lines :global(svg),
+  .contact-socials :global(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--red-ink);
+  }
+
+  .contact-address {
+    padding-top: var(--space-4);
+    border-top: 2px solid var(--ink);
+  }
+
+  .contact-socials {
+    grid-auto-flow: column;
+    justify-content: start;
+    gap: var(--space-5);
+  }
+
+  .contact-socials a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.75rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  @media (max-width: 56rem) {
+    .contact {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
